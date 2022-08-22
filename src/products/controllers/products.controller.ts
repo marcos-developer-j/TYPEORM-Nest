@@ -12,9 +12,7 @@ import {
   Res,
   // ParseIntPipe,
 } from '@nestjs/common';
-import { Response } from 'express';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
-
 import { ParseIntPipe } from '../../common/parse-int.pipe';
 import { CreateProductDto, UpdateProductDto } from '../dtos/products.dtos';
 import { ProductsService } from './../services/products.service';
@@ -68,5 +66,5 @@ export class ProductsController {
   @Delete(':id')
   delete(@Param('id') id: string) {
     return this.productsService.remove(+id);
-  }
+  } 
 }
