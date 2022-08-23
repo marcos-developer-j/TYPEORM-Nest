@@ -4,27 +4,31 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   CreateDateColumn,
-  OneToOne,
-  JoinColumn,
-
+  ManyToOne,
 } from 'typeorm';
-import { Customer } from './customer.entity';
+import { Exclude } from 'class-transformer';
+import { Product } from '../../products/entities/product.entity';
+import { Order } from './order.entity';
 @Entity()
-export class User {
+
+export class OrderItems {
   @PrimaryGeneratedColumn()
   id: number;
-  @Column({ type: 'varchar', length: 225 })
-  email: string;
-  @Column({ type: 'varchar', length: 225 })
-  password: string;
-  @Column({ type: 'varchar', length: 100 })
-  role: string;
+  date: Date;
   /* Sirve para ver la fecha en que se añade o actualiza una columna */
+  @Exclude()
   @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   createAt: Date;
+  @Exclude()
   @UpdateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   updateAt: Date;
-  @OneToOne(()=> Customer, (customer)=>customer.user,{nullable:true})
-  @JoinColumn({name:'costumer_id'})
-  customer: Customer;
+
+  @Column({ type: 'int' })
+  quantity: number;
+
+  @ManyToOne(() => Product)
+  product: Product;
+
+  @ManyToOne(() => Order,(order)=>order.items)
+  order: Order;
 }

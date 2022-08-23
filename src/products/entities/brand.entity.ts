@@ -5,7 +5,6 @@ import {
   UpdateDateColumn,
   CreateDateColumn,
   OneToMany,
-  JoinColumn,
 } from 'typeorm';
 import { Product } from './product.entity';
 @Entity()
